@@ -28,10 +28,13 @@ WHERE customer_id NOT IN (
 );
 
 -- Запрос 4
-SELECT DISTINCT p.product_name
-FROM products p
-JOIN order_details od ON p.product_id = od.product_id
-GROUP BY p.product_name
-HAVING SUM(od.quantity) = 10;
+SELECT DISTINCT product_name
+FROM products
+WHERE product_id IN (
+    SELECT product_id
+    FROM order_details
+    WHERE quantity = 10
+);
+
 
 
